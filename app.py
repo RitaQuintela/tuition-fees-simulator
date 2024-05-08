@@ -21,18 +21,13 @@ def index():
 def calculate():
     credits = int(request.form['credits'])
 
-    if 'excelFile' not in request.files:
-        return 'No file part'
+    # Assuming the backend admin panel provides a way to upload the Excel file
+    uploaded_file = request.files['excelFile']
 
-    file = request.files['excelFile']
-
-    if file.filename == '':
-        return 'No selected file'
-
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+    if uploaded_file and allowed_file(uploaded_file.filename):
+        filename = secure_filename(uploaded_file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
+        uploaded_file.save(file_path)
 
         workbook = load_workbook(file_path)
         sheet = workbook.active
@@ -47,7 +42,7 @@ def calculate():
 
         return f'Tuition Fees for {credits} credits: ${tuition:.2f}'
 
-    return 'Invalid file format'
+    return 'Invalid file format or no file uploaded'
 
 if __name__ == '__main__':
     app.run(debug=True)
