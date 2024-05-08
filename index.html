@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuition Fees Simulator</title>
+    <title>Upload Excel File</title>
 </head>
 <body>
-    <h1>Tuition Fees Simulator</h1>
+    <h1>Upload Excel File</h1>
     <form action="/calculate" method="post" enctype="multipart/form-data">
         <label for="credits">Number of Credits:</label>
         <input type="number" id="credits" name="credits" min="1" required>
@@ -14,7 +14,7 @@
         <label for="excelFile">Upload Excel File:</label>
         <input type="file" id="excelFile" name="excelFile" accept=".xlsx">
         <br><br>
-        <button type="submit">Calculate</button>
+        <button type="submit">Calculate Tuition Fees</button>
     </form>
 </body>
 </html>

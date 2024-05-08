@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
-import os
 from openpyxl import load_workbook
 
 app = Flask(__name__)
@@ -15,19 +14,17 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('upload.html')
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
     credits = int(request.form['credits'])
+    file = request.files['excelFile']
 
-    # Assuming the backend admin panel provides a way to upload the Excel file
-    uploaded_file = request.files['excelFile']
-
-    if uploaded_file and allowed_file(uploaded_file.filename):
-        filename = secure_filename(uploaded_file.filename)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        uploaded_file.save(file_path)
+        file.save(file_path)
 
         workbook = load_workbook(file_path)
         sheet = workbook.active
