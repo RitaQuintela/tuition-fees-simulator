@@ -1,3 +1,21 @@
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    credits = int(request.form['credits'])
+    tuition = credits * 100  # Dummy tuition fee calculation for testing
+    return f'Tuition Fees for {credits} credits: ${tuition:.2f}'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+
+"""
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 from openpyxl import load_workbook
@@ -43,3 +61,4 @@ def calculate():
 
 if __name__ == '__main__':
     app.run(debug=True)
+"""
